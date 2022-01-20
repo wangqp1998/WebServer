@@ -1,0 +1,1 @@
+/usr/bin/c++   -g  -Wall  -rdynamic CMakeFiles/WebServer.dir/main.cc.o CMakeFiles/WebServer.dir/src/Epoller/Epoller.cc.o CMakeFiles/WebServer.dir/src/Server/Server.cc.o CMakeFiles/WebServer.dir/src/Socket/Socket.cc.o  -o WebServer 
