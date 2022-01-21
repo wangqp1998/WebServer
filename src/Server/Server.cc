@@ -34,6 +34,22 @@ void WebServer::Server::start()
             {
                 DealListen();
             }
+            else if(event & (EPOLLRDHUP | EPOLLHUP | EPOLLERR))
+            {
+                
+            }
+            else if(event& EPOLLIN)
+            {
+
+            }
+            else if(event& EPOLLOUT)
+            {
+
+            }
+            else 
+            {
+                
+            }
         }
     } 
 }
