@@ -14,7 +14,16 @@ WebServer::Server::~Server()
 void WebServer::Server::DealListen()
 {
     std::cout<<"新的连接"<<std::endl;
-    myepoller->AddFd(mysocket->Accept(),EPOLLIN|EPOLLONESHOT|EPOLLRDHUP);
+    struct sockaddr_in addr;
+    socklen_t len = sizeof(addr);
+    int fd = mysocket->Accept((struct sockaddr *)& addr,len);
+    user[fd].Init(fd,addr);
+    myepoller->AddFd(fd,EPOLLIN|EPOLLONESHOT|EPOLLRDHUP);
+}
+
+void WebServer::Server::DealRead(HttpServer* client)
+{
+    
 }
 
 void WebServer::Server::start()
@@ -40,7 +49,7 @@ void WebServer::Server::start()
             }
             else if(event& EPOLLIN)
             {
-
+                DealRead(&user[fd]);
             }
             else if(event& EPOLLOUT)
             {

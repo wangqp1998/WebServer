@@ -4,6 +4,8 @@
 #include "../Socket/Socket.h"
 #include "../Epoller/Epoller.h"
 #include <memory>  //unique_ptr
+#include <unordered_map>
+#include "../Http/HttpServer.h"
 
 namespace WebServer
 {
@@ -17,9 +19,11 @@ public:
 
     void DealListen();
     void start();
+    void DealRead(HttpServer* client);
 private:
     std::unique_ptr<Epoller> myepoller;
     std::unique_ptr<Socket> mysocket;
+    std::unordered_map<int,HttpServer> user;
 };
 }
 

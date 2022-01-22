@@ -23,17 +23,24 @@ public:
     ~Buffer();
 
     ssize_t readFd(int fd,int* savedErrno);
-private:
+
     size_t readableBytes() const {return writerIndex - readerIndex;}
+    const char* Peek() const {return begin()+readerIndex;}
+
+    char* BeginWrite() {return begin()+writerIndex;}
+    const char* BeginWriteConst() const{return begin()+writerIndex;}
+    
+    void Retrieve(size_t len) {assert(len <= readableBytes());readerIndex += len;}
+    void RetrieveUntil(const char* end) {assert(Peek() <= end );Retrieve(end - Peek());}
+
+private:
+   
     size_t writeableBytes() const {return buffer.size()-writerIndex;}
     size_t PrependableBytes() const {return readerIndex;}
 
    
-    char* begin(){return &*buffer.begin();}
-
-    char* BeginWrite() {return begin()+writerIndex;}
-
-    
+    const char* begin() const{return &*buffer.begin();}
+    char* begin() {return &*buffer.begin();}
 
     void Append(const char* str,size_t len);
 

@@ -28,7 +28,7 @@ public:
     void SetIOMult();
     void Bind(int port);
     void Listen();
-    int Accept();
+    int Accept(struct sockaddr * addr, socklen_t len);
 
     int Getlistedfd(){return listenfd;}
     Socket(const Socket&) = delete;

@@ -55,11 +55,9 @@ void WebServer::Socket::Listen()
     }
 }
 
-int WebServer::Socket::Accept()
+int WebServer::Socket::Accept(struct sockaddr * addr, socklen_t len)
 {
-    struct sockaddr_in addr;
-    socklen_t len = sizeof(addr);
-    int fd = accept(listenfd, (struct sockaddr *)&addr, &len);
+    int fd = accept(listenfd, addr, &len);
     if(fd <= 0){ return -1;}
     return fd;
 }
