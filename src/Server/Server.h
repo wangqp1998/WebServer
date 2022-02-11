@@ -20,6 +20,9 @@ public:
     void DealListen();
     void start();
     void DealRead(HttpServer* client);
+    void OnRead(HttpServer* client);
+
+    void OnProsse(HttpServer* client);
 private:
     std::unique_ptr<Epoller> myepoller;
     std::unique_ptr<Socket> mysocket;

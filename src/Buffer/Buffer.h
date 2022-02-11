@@ -2,6 +2,7 @@
 #define BUFFER_H
 
 #include <vector>
+#include <string.h>
 #include <string>
 #include <sys/uio.h>   //iovec
 #include <assert.h>
@@ -20,7 +21,7 @@ public:
         assert(writeableBytes() == initSize);
         assert(PrependableBytes() == 0);
     }   
-    ~Buffer();
+    ~Buffer() {};
 
     ssize_t readFd(int fd,int* savedErrno);
 
@@ -33,6 +34,7 @@ public:
     void Retrieve(size_t len) {assert(len <= readableBytes());readerIndex += len;}
     void RetrieveUntil(const char* end) {assert(Peek() <= end );Retrieve(end - Peek());}
 
+    void RetrieveAll();     //清空
 private:
    
     size_t writeableBytes() const {return buffer.size()-writerIndex;}

@@ -150,6 +150,33 @@ main.cc.s:
 	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/main.cc.s
 .PHONY : main.cc.s
 
+src/Buffer/Buffer.o: src/Buffer/Buffer.cc.o
+
+.PHONY : src/Buffer/Buffer.o
+
+# target to build an object file
+src/Buffer/Buffer.cc.o:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Buffer/Buffer.cc.o
+.PHONY : src/Buffer/Buffer.cc.o
+
+src/Buffer/Buffer.i: src/Buffer/Buffer.cc.i
+
+.PHONY : src/Buffer/Buffer.i
+
+# target to preprocess a source file
+src/Buffer/Buffer.cc.i:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Buffer/Buffer.cc.i
+.PHONY : src/Buffer/Buffer.cc.i
+
+src/Buffer/Buffer.s: src/Buffer/Buffer.cc.s
+
+.PHONY : src/Buffer/Buffer.s
+
+# target to generate assembly for a file
+src/Buffer/Buffer.cc.s:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Buffer/Buffer.cc.s
+.PHONY : src/Buffer/Buffer.cc.s
+
 src/Epoller/Epoller.o: src/Epoller/Epoller.cc.o
 
 .PHONY : src/Epoller/Epoller.o
@@ -176,6 +203,60 @@ src/Epoller/Epoller.s: src/Epoller/Epoller.cc.s
 src/Epoller/Epoller.cc.s:
 	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Epoller/Epoller.cc.s
 .PHONY : src/Epoller/Epoller.cc.s
+
+src/Http/HttpRequest.o: src/Http/HttpRequest.cc.o
+
+.PHONY : src/Http/HttpRequest.o
+
+# target to build an object file
+src/Http/HttpRequest.cc.o:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o
+.PHONY : src/Http/HttpRequest.cc.o
+
+src/Http/HttpRequest.i: src/Http/HttpRequest.cc.i
+
+.PHONY : src/Http/HttpRequest.i
+
+# target to preprocess a source file
+src/Http/HttpRequest.cc.i:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.i
+.PHONY : src/Http/HttpRequest.cc.i
+
+src/Http/HttpRequest.s: src/Http/HttpRequest.cc.s
+
+.PHONY : src/Http/HttpRequest.s
+
+# target to generate assembly for a file
+src/Http/HttpRequest.cc.s:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.s
+.PHONY : src/Http/HttpRequest.cc.s
+
+src/Http/HttpServer.o: src/Http/HttpServer.cc.o
+
+.PHONY : src/Http/HttpServer.o
+
+# target to build an object file
+src/Http/HttpServer.cc.o:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o
+.PHONY : src/Http/HttpServer.cc.o
+
+src/Http/HttpServer.i: src/Http/HttpServer.cc.i
+
+.PHONY : src/Http/HttpServer.i
+
+# target to preprocess a source file
+src/Http/HttpServer.cc.i:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.i
+.PHONY : src/Http/HttpServer.cc.i
+
+src/Http/HttpServer.s: src/Http/HttpServer.cc.s
+
+.PHONY : src/Http/HttpServer.s
+
+# target to generate assembly for a file
+src/Http/HttpServer.cc.s:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.s
+.PHONY : src/Http/HttpServer.cc.s
 
 src/Server/Server.o: src/Server/Server.cc.o
 
@@ -243,9 +324,18 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/Buffer/Buffer.o"
+	@echo "... src/Buffer/Buffer.i"
+	@echo "... src/Buffer/Buffer.s"
 	@echo "... src/Epoller/Epoller.o"
 	@echo "... src/Epoller/Epoller.i"
 	@echo "... src/Epoller/Epoller.s"
+	@echo "... src/Http/HttpRequest.o"
+	@echo "... src/Http/HttpRequest.i"
+	@echo "... src/Http/HttpRequest.s"
+	@echo "... src/Http/HttpServer.o"
+	@echo "... src/Http/HttpServer.i"
+	@echo "... src/Http/HttpServer.s"
 	@echo "... src/Server/Server.o"
 	@echo "... src/Server/Server.i"
 	@echo "... src/Server/Server.s"

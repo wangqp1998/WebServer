@@ -5,7 +5,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/WebServer/main.cc" "/home/WebServer/build/CMakeFiles/WebServer.dir/main.cc.o"
+  "/home/WebServer/src/Buffer/Buffer.cc" "/home/WebServer/build/CMakeFiles/WebServer.dir/src/Buffer/Buffer.cc.o"
   "/home/WebServer/src/Epoller/Epoller.cc" "/home/WebServer/build/CMakeFiles/WebServer.dir/src/Epoller/Epoller.cc.o"
+  "/home/WebServer/src/Http/HttpRequest.cc" "/home/WebServer/build/CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o"
+  "/home/WebServer/src/Http/HttpServer.cc" "/home/WebServer/build/CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o"
   "/home/WebServer/src/Server/Server.cc" "/home/WebServer/build/CMakeFiles/WebServer.dir/src/Server/Server.cc.o"
   "/home/WebServer/src/Socket/Socket.cc" "/home/WebServer/build/CMakeFiles/WebServer.dir/src/Socket/Socket.cc.o"
   )

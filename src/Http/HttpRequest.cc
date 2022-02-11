@@ -1,9 +1,17 @@
 #include "HttpRequest.h"
 
+void WebServer::HttpRequest::init()
+{
+    method=path=version=body="";
+    state = REQUEST_LINE;
+    headers.clear();
+    //post.clear();
+}
+
 bool WebServer::HttpRequest::pares(Buffer& buff)
 {
     const char CRLF[]="\r\n";
-    if(!buff.readableBytes() <= 0)
+    if(buff.readableBytes() <= 0)
         return false;
     while (buff.readableBytes() && state != FINISH)  //能读并且没读完
     {
@@ -32,7 +40,7 @@ bool WebServer::HttpRequest::pares(Buffer& buff)
         if(lineEnd == buff.BeginWrite()) { break; }
         buff.RetrieveUntil(lineEnd + 2);
     }
-    
+   return true; 
 }
 
 bool WebServer::HttpRequest::ParseRequestLine(const std::string& line)

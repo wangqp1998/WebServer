@@ -3,14 +3,32 @@
 
 CMakeFiles/WebServer.dir/main.cc.o
  /home/WebServer/main.cc
+ /home/WebServer/src/Buffer/Buffer.h
  /home/WebServer/src/Epoller/Epoller.h
+ /home/WebServer/src/Http/HttpRequest.h
+ /home/WebServer/src/Http/HttpServer.h
  /home/WebServer/src/Server/Server.h
  /home/WebServer/src/Socket/Socket.h
+CMakeFiles/WebServer.dir/src/Buffer/Buffer.cc.o
+ /home/WebServer/src/Buffer/Buffer.cc
+ /home/WebServer/src/Buffer/Buffer.h
 CMakeFiles/WebServer.dir/src/Epoller/Epoller.cc.o
  /home/WebServer/src/Epoller/Epoller.cc
  /home/WebServer/src/Epoller/Epoller.h
+CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o
+ /home/WebServer/src/Buffer/Buffer.h
+ /home/WebServer/src/Http/HttpRequest.cc
+ /home/WebServer/src/Http/HttpRequest.h
+CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o
+ /home/WebServer/src/Buffer/Buffer.h
+ /home/WebServer/src/Http/HttpRequest.h
+ /home/WebServer/src/Http/HttpServer.cc
+ /home/WebServer/src/Http/HttpServer.h
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o
+ /home/WebServer/src/Buffer/Buffer.h
  /home/WebServer/src/Epoller/Epoller.h
+ /home/WebServer/src/Http/HttpRequest.h
+ /home/WebServer/src/Http/HttpServer.h
  /home/WebServer/src/Server/Server.cc
  /home/WebServer/src/Server/Server.h
  /home/WebServer/src/Socket/Socket.h

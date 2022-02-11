@@ -6,45 +6,31 @@
 
 #IncludeRegexTransform: 
 
-/home/WebServer/main.cc
-src/Server/Server.h
-/home/WebServer/src/Server/Server.h
-
-/home/WebServer/src/Epoller/Epoller.h
-sys/epoll.h
+/home/WebServer/src/Buffer/Buffer.h
+vector
 -
-fcntl.h
+string.h
 -
-unistd.h
+string
+-
+sys/uio.h
 -
 assert.h
 -
-vector
--
-errno.h
--
 
-/home/WebServer/src/Server/Server.h
-../Socket/Socket.h
-/home/WebServer/src/Socket/Socket.h
-../Epoller/Epoller.h
-/home/WebServer/src/Epoller/Epoller.h
-memory
--
+/home/WebServer/src/Http/HttpRequest.cc
+HttpRequest.h
+/home/WebServer/src/Http/HttpRequest.h
 
-/home/WebServer/src/Socket/Socket.h
-sys/socket.h
+/home/WebServer/src/Http/HttpRequest.h
+../Buffer/Buffer.h
+/home/WebServer/src/Buffer/Buffer.h
+string
 -
-unistd.h
+regex
 -
-fcntl.h
+algorithm
 -
-netinet/in.h
--
-arpa/inet.h
--
-stdio.h
--
-stdlib.h
+unordered_map
 -
 

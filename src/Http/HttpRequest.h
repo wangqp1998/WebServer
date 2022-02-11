@@ -29,8 +29,10 @@ public:
         CLOSED_CONNECTION, 
     };
 
-    HttpRequest();
-    ~HttpRequest();
+    HttpRequest() {};
+    ~HttpRequest() {};
+
+    void init();
 
     bool pares(Buffer& buff);
 

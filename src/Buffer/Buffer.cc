@@ -34,7 +34,7 @@ void WebServer::Buffer::Append(const char* str,size_t len)
 
 void WebServer::Buffer::EnsureWriteable(size_t len)
 {
-    if(writeableBytes()<len);
+    if(writeableBytes()<len)
         makeSpace(len);
     assert(writeableBytes()>=len);
 }
@@ -53,4 +53,11 @@ void WebServer::Buffer::makeSpace(size_t len)
         writerIndex = readerIndex + readable;
         assert(readable == readableBytes());
     }
+}
+
+void WebServer::Buffer::RetrieveAll()
+{
+    bzero(&buffer[0],buffer.size());
+    readerIndex = 0;
+    writerIndex = 0;
 }

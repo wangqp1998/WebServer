@@ -23,7 +23,32 @@ void WebServer::Server::DealListen()
 
 void WebServer::Server::DealRead(HttpServer* client)
 {
+    assert(client);
+    std::cout<<"开始读"<<std::endl;
+    OnRead(client);
+}
+void WebServer::Server::OnRead(HttpServer* client)
+{
+    assert(client);
+    int ret = -1;
+    int readErrno=0;
+    std::cout<<"开始读入buffer"<<std::endl;
+    ret = client->read(&readErrno);
+    std::cout<<"读入buffer完成"<<std::endl;
     
+    OnProsse(client);   
+}
+
+void WebServer::Server::OnProsse(HttpServer* client)
+{
+    if(client->process())
+    {
+        myepoller->ModFd(client->GetFd(),EPOLLOUT|EPOLLONESHOT|EPOLLRDHUP);
+    }
+    else
+    {
+        myepoller->ModFd(client->GetFd(),EPOLLIN|EPOLLONESHOT|EPOLLRDHUP);
+    }
 }
 
 void WebServer::Server::start()
@@ -41,7 +66,9 @@ void WebServer::Server::start()
             uint32_t event=myepoller->GetEvents(i);
             if(fd==mysocket->Getlistedfd())
             {
+               std::cout<<"DealListen"<<std::endl;
                 DealListen();
+                 
             }
             else if(event & (EPOLLRDHUP | EPOLLHUP | EPOLLERR))
             {
@@ -49,7 +76,9 @@ void WebServer::Server::start()
             }
             else if(event& EPOLLIN)
             {
+                std::cout<<"DealRead"<<std::endl;
                 DealRead(&user[fd]);
+
             }
             else if(event& EPOLLOUT)
             {
