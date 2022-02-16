@@ -5,6 +5,7 @@ CMakeFiles/WebServer.dir/main.cc.o: ../main.cc
 CMakeFiles/WebServer.dir/main.cc.o: ../src/Buffer/Buffer.h
 CMakeFiles/WebServer.dir/main.cc.o: ../src/Epoller/Epoller.h
 CMakeFiles/WebServer.dir/main.cc.o: ../src/Http/HttpRequest.h
+CMakeFiles/WebServer.dir/main.cc.o: ../src/Http/HttpResponse.h
 CMakeFiles/WebServer.dir/main.cc.o: ../src/Http/HttpServer.h
 CMakeFiles/WebServer.dir/main.cc.o: ../src/Server/Server.h
 CMakeFiles/WebServer.dir/main.cc.o: ../src/Socket/Socket.h
@@ -19,14 +20,20 @@ CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o: ../src/Buffer/Buffer.h
 CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o: ../src/Http/HttpRequest.cc
 CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o: ../src/Http/HttpRequest.h
 
+CMakeFiles/WebServer.dir/src/Http/HttpResponse.cc.o: ../src/Buffer/Buffer.h
+CMakeFiles/WebServer.dir/src/Http/HttpResponse.cc.o: ../src/Http/HttpResponse.cc
+CMakeFiles/WebServer.dir/src/Http/HttpResponse.cc.o: ../src/Http/HttpResponse.h
+
 CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/Buffer/Buffer.h
 CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/Http/HttpRequest.h
+CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/Http/HttpResponse.h
 CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/Http/HttpServer.cc
 CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/Http/HttpServer.h
 
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Buffer/Buffer.h
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Epoller/Epoller.h
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Http/HttpRequest.h
+CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Http/HttpResponse.h
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Http/HttpServer.h
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Server/Server.cc
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Server/Server.h

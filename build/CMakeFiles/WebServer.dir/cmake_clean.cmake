@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/WebServer.dir/src/Buffer/Buffer.cc.o"
   "CMakeFiles/WebServer.dir/src/Epoller/Epoller.cc.o"
   "CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o"
+  "CMakeFiles/WebServer.dir/src/Http/HttpResponse.cc.o"
   "CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o"
   "CMakeFiles/WebServer.dir/src/Server/Server.cc.o"
   "CMakeFiles/WebServer.dir/src/Socket/Socket.cc.o"

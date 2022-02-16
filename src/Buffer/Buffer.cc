@@ -1,4 +1,5 @@
 #include "Buffer.h"
+#include <iostream>
 
 ssize_t WebServer::Buffer::readFd(int fd,int* saveErrno)
 {
@@ -21,15 +22,28 @@ ssize_t WebServer::Buffer::readFd(int fd,int* saveErrno)
         writerIndex = buffer.size();
         Append(extrabuf,len - writeable);
     }
+    //std::cout << buffer.data() << std::endl;
     return len;
 }
+
+
+
 
 void WebServer::Buffer::Append(const char* str,size_t len)
 {
     EnsureWriteable(len);
     std::copy(str,str+len,BeginWrite());
-    assert(len <= writerIndex);
-    writerIndex -= len;
+    writerIndex += len;
+}
+
+void WebServer::Buffer::Append(const std::string &str)
+{
+    Append(str.data(),str.size());
+}
+
+void WebServer::Buffer::Append(const void* data, size_t len) {
+    assert(data);
+    Append(static_cast<const char*>(data), len);
 }
 
 void WebServer::Buffer::EnsureWriteable(size_t len)

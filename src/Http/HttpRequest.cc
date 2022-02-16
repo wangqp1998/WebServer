@@ -8,6 +8,17 @@ void WebServer::HttpRequest::init()
     //post.clear();
 }
 
+
+
+bool WebServer::HttpRequest::IsKeepAlive() const
+{
+    if(headers.count("Connetion") == 1)
+    {
+        return headers.find("Connection")->second == "keep-alive" && version == "1.1";
+    }
+    return false;
+}
+
 bool WebServer::HttpRequest::pares(Buffer& buff)
 {
     const char CRLF[]="\r\n";
@@ -62,11 +73,11 @@ void WebServer::HttpRequest::ParsePath()
 {
     if(path == "/")
     {
-
+        path = "/index.html"; 
     }
     else
     {
-
+        path = "/index.html";   /*测试，需修改*/ 
     }
 }
 void WebServer::HttpRequest::ParseHeader(const std::string& line)

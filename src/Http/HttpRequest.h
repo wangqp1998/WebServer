@@ -35,6 +35,10 @@ public:
     void init();
 
     bool pares(Buffer& buff);
+    
+    bool IsKeepAlive() const;
+
+    std::string Getpath() {return path;}
 
 private:
     bool ParseRequestLine(const std::string& line);

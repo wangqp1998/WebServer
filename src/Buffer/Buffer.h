@@ -35,6 +35,11 @@ public:
     void RetrieveUntil(const char* end) {assert(Peek() <= end );Retrieve(end - Peek());}
 
     void RetrieveAll();     //清空
+
+    void Append(const std::string& str);
+    void Append(const char* str, size_t len);
+    void Append(const void* data, size_t len);
+    //void Append(const Buffer& buff);
 private:
    
     size_t writeableBytes() const {return buffer.size()-writerIndex;}
@@ -43,8 +48,6 @@ private:
    
     const char* begin() const{return &*buffer.begin();}
     char* begin() {return &*buffer.begin();}
-
-    void Append(const char* str,size_t len);
 
     void EnsureWriteable(size_t len);
 

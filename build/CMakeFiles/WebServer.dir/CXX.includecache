@@ -18,19 +18,25 @@ sys/uio.h
 assert.h
 -
 
-/home/WebServer/src/Http/HttpRequest.cc
-HttpRequest.h
-/home/WebServer/src/Http/HttpRequest.h
+/home/WebServer/src/Http/HttpResponse.cc
+HttpResponse.h
+/home/WebServer/src/Http/HttpResponse.h
 
-/home/WebServer/src/Http/HttpRequest.h
-../Buffer/Buffer.h
-/home/WebServer/src/Buffer/Buffer.h
+/home/WebServer/src/Http/HttpResponse.h
 string
 -
-regex
+sys/stat.h
 -
-algorithm
--
+../Buffer/Buffer.h
+/home/WebServer/src/Buffer/Buffer.h
 unordered_map
+-
+unistd.h
+-
+fcntl.h
+-
+sys/mman.h
+-
+iostream
 -
 

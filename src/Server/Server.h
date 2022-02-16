@@ -22,7 +22,11 @@ public:
     void DealRead(HttpServer* client);
     void OnRead(HttpServer* client);
 
+    void DealWrite(HttpServer* client);
+
     void OnProsse(HttpServer* client);
+
+    void CloseConn(HttpServer* client);
 private:
     std::unique_ptr<Epoller> myepoller;
     std::unique_ptr<Socket> mysocket;

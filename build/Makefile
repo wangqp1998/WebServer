@@ -231,6 +231,33 @@ src/Http/HttpRequest.cc.s:
 	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.s
 .PHONY : src/Http/HttpRequest.cc.s
 
+src/Http/HttpResponse.o: src/Http/HttpResponse.cc.o
+
+.PHONY : src/Http/HttpResponse.o
+
+# target to build an object file
+src/Http/HttpResponse.cc.o:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Http/HttpResponse.cc.o
+.PHONY : src/Http/HttpResponse.cc.o
+
+src/Http/HttpResponse.i: src/Http/HttpResponse.cc.i
+
+.PHONY : src/Http/HttpResponse.i
+
+# target to preprocess a source file
+src/Http/HttpResponse.cc.i:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Http/HttpResponse.cc.i
+.PHONY : src/Http/HttpResponse.cc.i
+
+src/Http/HttpResponse.s: src/Http/HttpResponse.cc.s
+
+.PHONY : src/Http/HttpResponse.s
+
+# target to generate assembly for a file
+src/Http/HttpResponse.cc.s:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Http/HttpResponse.cc.s
+.PHONY : src/Http/HttpResponse.cc.s
+
 src/Http/HttpServer.o: src/Http/HttpServer.cc.o
 
 .PHONY : src/Http/HttpServer.o
@@ -333,6 +360,9 @@ help:
 	@echo "... src/Http/HttpRequest.o"
 	@echo "... src/Http/HttpRequest.i"
 	@echo "... src/Http/HttpRequest.s"
+	@echo "... src/Http/HttpResponse.o"
+	@echo "... src/Http/HttpResponse.i"
+	@echo "... src/Http/HttpResponse.s"
 	@echo "... src/Http/HttpServer.o"
 	@echo "... src/Http/HttpServer.i"
 	@echo "... src/Http/HttpServer.s"

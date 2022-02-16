@@ -8,12 +8,11 @@ set(CMAKE_CXX_FLAGS "${CMKE_CXX_FLAGS} -g  -Wall")
 
 add_executable(WebServer main.cc 
                src/Epoller/Epoller.cc 
-              # src/Http/HttpResponse.cc
+               src/Http/HttpResponse.cc
                src/Http/HttpServer.cc
                src/Http/HttpRequest.cc
                src/Server/Server.cc 
                src/Socket/Socket.cc
                src/Buffer/Buffer.cc
-               
                                     )
 
