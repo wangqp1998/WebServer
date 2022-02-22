@@ -27,7 +27,7 @@ public:
 
     size_t readableBytes() const {return writerIndex - readerIndex;}
     const char* Peek() const {return begin()+readerIndex;}
-
+    void HasWritten(size_t len) { writerIndex += len;} 
     char* BeginWrite() {return begin()+writerIndex;}
     const char* BeginWriteConst() const{return begin()+writerIndex;}
     
@@ -35,14 +35,21 @@ public:
     void RetrieveUntil(const char* end) {assert(Peek() <= end );Retrieve(end - Peek());}
 
     void RetrieveAll();     //清空
+    std::string RetrieveAllToStr()
+    {std::string str(Peek(), readableBytes());
+    RetrieveAll();
+    return str;
+}
 
     void Append(const std::string& str);
     void Append(const char* str, size_t len);
     void Append(const void* data, size_t len);
     //void Append(const Buffer& buff);
+
+    size_t writeableBytes() const {return buffer.size()-writerIndex;}
 private:
    
-    size_t writeableBytes() const {return buffer.size()-writerIndex;}
+    
     size_t PrependableBytes() const {return readerIndex;}
 
    
