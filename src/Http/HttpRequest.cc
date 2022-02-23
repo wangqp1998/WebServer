@@ -51,6 +51,7 @@ bool WebServer::HttpRequest::pares(Buffer& buff)
         if(lineEnd == buff.BeginWrite()) { break; }
         buff.RetrieveUntil(lineEnd + 2);
     }
+    LOG_DEBUG("[%s], [%s], [%s]", method.c_str(), path.c_str(), version.c_str());
    return true; 
 }
 

@@ -11,7 +11,6 @@
 #include <sys/stat.h>         
 #include "blockqueue.h"
 #include "../Buffer/Buffer.h"
-#include <iostream>
 
 namespace WebServer{
 class Log {

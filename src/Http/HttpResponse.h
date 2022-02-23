@@ -9,6 +9,7 @@
 #include <fcntl.h>    //open
 #include <sys/mman.h>
 #include <iostream>
+#include "../Log/Log.h"
 
 namespace WebServer
 {

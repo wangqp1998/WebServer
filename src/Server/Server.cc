@@ -2,11 +2,15 @@
 #include <iostream>
 
 WebServer::Server::Server(int port)
-    :myepoller(new Epoller),mysocket(new Socket)
+    :myepoller(new Epoller),mysocket(new Socket),mythreadpool(new ThreadPool(8))
 {
     InitSocket(port);
     HttpServer::mysrcDir = "../resources";
     HttpServer::userCount = 0;
+
+    Log::Instance()->init(0, "./log", ".log", 1024);
+    LOG_INFO("========== Server init ==========");
+
 }
 
 WebServer::Server::~Server()
@@ -20,14 +24,14 @@ void WebServer::Server::DealListen()
     int fd = mysocket->Accept((struct sockaddr *)& addr,len);
     user[fd].Init(fd,addr);
     myepoller->AddFd(fd,EPOLLIN|EPOLLONESHOT|EPOLLRDHUP);
-    std::cout << "连接:" << fd <<std::endl;
+    LOG_INFO("DealListen:%d",fd);
 }
 
 void WebServer::Server::DealRead(HttpServer* client)
 {
     assert(client);
-    std::cout << "读数据:" << client->GetFd() <<std::endl;
-    OnRead(client);
+    LOG_INFO("DealRead:%d",client->GetFd());
+    mythreadpool->AddTask(std::bind(&WebServer::Server::OnRead,this,client));
 }
 void WebServer::Server::OnRead(HttpServer* client)
 {
@@ -40,8 +44,14 @@ void WebServer::Server::OnRead(HttpServer* client)
 
 void WebServer::Server::DealWrite(HttpServer* client)
 {
+    assert(client);
+    LOG_INFO("DealWrite:%d",client->GetFd());
+    mythreadpool->AddTask(std::bind(&WebServer::Server::OnWrite,this,client));
+}
+
+void WebServer::Server::OnWrite(HttpServer* client)
+{
     int WriteError = 0;
-    std::cout << "写数据:" << client->GetFd() <<std::endl;
     int ret = client->write(&WriteError);
     if(client->ToWriteBytes() == 0)
     {
@@ -76,9 +86,7 @@ void WebServer::Server::OnProsse(HttpServer* client)
 void WebServer::Server::start()
 {
     int timeMs = -1;  //无事件 阻塞
-
-    std::cout<<"====Server start===="<<std::endl;
-
+    
     while(1)
     {
         int eventCnt = myepoller->Wait(timeMs);
@@ -88,7 +96,7 @@ void WebServer::Server::start()
             uint32_t event=myepoller->GetEvents(i);
             if(fd==mysocket->Getlistedfd())
             {
-                DealListen();    
+                DealListen();   
             }
             else if(event & (EPOLLRDHUP | EPOLLHUP | EPOLLERR))
             {
@@ -97,11 +105,9 @@ void WebServer::Server::start()
             else if(event& EPOLLIN)
             {
                 DealRead(&user[fd]);
-
             }
             else if(event& EPOLLOUT)
             {
-                std::cout<<"DealWrite"<<std::endl;
                 DealWrite(&user[fd]);
             }
             else 
@@ -129,7 +135,7 @@ void WebServer::Server::InitSocket(int port)
 void WebServer::Server::CloseConn(HttpServer* client)
 {
     assert(client);
-    std::cout <<"关闭:"<< client->GetFd() << std::endl;
+    LOG_INFO("CloseConn%d",client->GetFd());
     myepoller->DelFd(client->GetFd());
     client->Close();
 }

@@ -63,6 +63,7 @@ void WebServer::HttpResponse::Init(const std::string& srcDir_,std::string path,i
     mysrcDir=srcDir_;
     mFile = nullptr;
     mFileStat = {0};
+    LOG_DEBUG("IsKeepAlive:%d",my_IsKeepAlive);
 }
 
 void WebServer::HttpResponse::AddStateLine(Buffer &buff)
@@ -103,7 +104,6 @@ void WebServer::HttpResponse::AddContent(Buffer &buff)
     mFileStat.st_size = lseek(srcFd,0,SEEK_END);
     mFile = (char*)mmap(0, mFileStat.st_size, PROT_READ, MAP_PRIVATE, srcFd, 0);
 
-    std::cout <<"errno: "<<errno << std::endl;
     close(srcFd);
     buff.Append("Content-length: " + std::to_string(mFileStat.st_size) + "\r\n\r\n");
 }

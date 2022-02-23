@@ -48,9 +48,8 @@ void WebServer::Log::init(int level = 1, const char* path, const char* suffix,
             deque_ = move(newDeque);
             
             std::unique_ptr<std::thread> NewThread(new thread(FlushLogThread));
-            
             writeThread_ = move(NewThread);
-            cout<<writeThread_->get_id()<<endl;
+            
         }
     } else {
         isAsync_ = false;
@@ -86,7 +85,6 @@ void WebServer::Log::init(int level = 1, const char* path, const char* suffix,
 }
 
 void WebServer::Log::write(int level, const char *format, ...) {
-     cout<<writeThread_->get_id()<<endl;
     struct timeval now = {0, 0};
     gettimeofday(&now, nullptr);
     time_t tSec = now.tv_sec;
@@ -175,6 +173,7 @@ void WebServer::Log::flush() {
 }
 
 void WebServer::Log::AsyncWrite_() {
+   
     string str = "";
     while(deque_->pop(str)) {
         lock_guard<mutex> locker(mtx_);

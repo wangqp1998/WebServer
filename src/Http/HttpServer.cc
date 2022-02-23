@@ -30,7 +30,6 @@ ssize_t WebServer::HttpServer::write(int* saveErrno)
     do
     {
         len = writev(Httpfd,iov,iovCnt);
-        writev(STDOUT_FILENO,iov,iovCnt);
         if(len <= 0)
         {
             *saveErrno = errno;
@@ -95,7 +94,6 @@ bool WebServer::HttpServer::process()
         iov[1].iov_base = HttpResponse_ptr->GetFile();
         iov[1].iov_len = HttpResponse_ptr->GetFileSize();
         iovCnt = 2;
-        std::cout<<"文件!!"<<std::endl;
     }
     return true;
 }

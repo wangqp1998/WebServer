@@ -6,6 +6,8 @@
 #include <regex>
 #include <algorithm>
 #include <unordered_map>
+#include "../Log/Log.h"
+
 
 namespace WebServer
 {
