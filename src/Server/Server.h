@@ -18,6 +18,7 @@ public:
     ~Server();
 
     void InitSocket(int port);
+    void InitEventMode(int trigMode);
 
     void DealListen();
     void start();
@@ -31,6 +32,10 @@ public:
 
     void CloseConn(HttpServer* client);
 private:
+
+    uint32_t listenEvent;
+    uint32_t connEvent;
+
     std::unique_ptr<Epoller> myepoller;
     std::unique_ptr<Socket> mysocket;
     std::unordered_map<int,HttpServer> user;

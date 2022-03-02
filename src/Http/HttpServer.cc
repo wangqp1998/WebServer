@@ -1,7 +1,9 @@
 #include "HttpServer.h"
 #include <iostream>
+
 std::atomic<int> WebServer::HttpServer::userCount;
 const char* WebServer::HttpServer::mysrcDir;
+bool WebServer::HttpServer::isET;
 
 WebServer::HttpServer::HttpServer()
     :Httpfd(-1),Httpaddr{0},HttpRequest_ptr(new HttpRequest),HttpResponse_ptr(new HttpResponse),IsClose(true)
@@ -10,29 +12,33 @@ WebServer::HttpServer::HttpServer()
 
 WebServer::HttpServer::~HttpServer()
 {
-    Close();
+    Close();    //断开连接
 }
 
-ssize_t WebServer::HttpServer::read(int* saveErrno)
+ssize_t WebServer::HttpServer::read(int* saveErrno)   //读
 {
     ssize_t len = -1;
-   
+    do
+    {
         len=inputBuffer.readFd(Httpfd,saveErrno);
-        //if(len <= 0)
-           // break;
-   
+        if(len <= 0)
+            break;
+    }while(isET);
+    
     return len;
 }
 
-ssize_t WebServer::HttpServer::write(int* saveErrno)
+ssize_t WebServer::HttpServer::write(int* saveErrno)  //写
 {
     ssize_t len = -1;
     do
     {
         len = writev(Httpfd,iov,iovCnt);
+        LOG_INFO("writev");
         if(len <= 0)
         {
             *saveErrno = errno;
+            break;
         }
         if(iov[0].iov_len+iov[1].iov_len == 0)   //传输完成
         {
@@ -53,18 +59,21 @@ ssize_t WebServer::HttpServer::write(int* saveErrno)
             iov[0].iov_len -= len; 
             outputBuffer.Retrieve(len);
         }
-    } while (0);
+    } while (isET||ToWriteBytes() > 10240);
  
     return len;
 }
 
 void WebServer::HttpServer::Init(int fd,const sockaddr_in& addr)
 {
+    assert(fd>0);
+    userCount++;   //用户加1
     Httpfd = fd;
     Httpaddr = addr;
-    inputBuffer.RetrieveAll();
-    outputBuffer.RetrieveAll();
-    IsClose = true;
+    inputBuffer.RetrieveAll();   //清空input区
+    outputBuffer.RetrieveAll();  //情况output区
+    IsClose = false;
+    LOG_INFO("Client[%d](%s:%d) in, userCount:%d", Httpfd, GetIP(), GetPort(), (int)userCount);
 }
 
 bool WebServer::HttpServer::process()
@@ -106,5 +115,6 @@ void WebServer::HttpServer::Close()
         IsClose = true;
         userCount -- ;
         close(Httpfd);
+        LOG_INFO("Client[%d](%s:%d) quit, UserCount:%d", Httpaddr, GetIP(), GetPort(), (int)userCount);
     }
 }
