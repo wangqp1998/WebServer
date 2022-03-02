@@ -50,10 +50,27 @@ WebServer::HttpResponse::~HttpResponse()
 
 void WebServer::HttpResponse::MakeResponse(Buffer& buff)
 {
+    if(stat((mysrcDir + mypath).data(), &mFileStat) < 0 || S_ISDIR(mFileStat.st_mode)) {
+        mycode = 404;
+    }
+    else if(!(mFileStat.st_mode & S_IROTH)) {
+        mycode = 403;
+    }
+    else if(mycode == -1) { 
+        mycode = 200; 
+    }
+    ErrorHtml();
     AddStateLine(buff);
     AddHeader(buff);
     AddContent(buff);
 } 
+
+void WebServer::HttpResponse::ErrorHtml() {
+    if(CODE_PATH.count(mycode) == 1) {
+        mypath = CODE_PATH.find(mycode)->second;
+        stat((mysrcDir + mypath).data(), &mFileStat);
+    }
+}
 
 void WebServer::HttpResponse::Init(const std::string& srcDir_,std::string path,int code ,bool IsKeepAive)
 {
@@ -95,7 +112,6 @@ void WebServer::HttpResponse::AddHeader(Buffer &buff)
 void WebServer::HttpResponse::AddContent(Buffer &buff)
 {
     int srcFd = open((mysrcDir + mypath).data(),O_RDONLY);
-    std::cout<<srcFd<<std::endl;
     if(srcFd < 0)
     {
         //报错
@@ -130,4 +146,23 @@ void WebServer::HttpResponse::UnmapFile()
         munmap(mFile,mFileStat.st_size);
         mFile = nullptr;
     }
+}
+
+void WebServer::HttpResponse::ErrorContent(Buffer& buff, std::string message) 
+{
+    std::string body;
+    std::string status;
+    body += "<html><title>Error</title>";
+    body += "<body bgcolor=\"ffffff\">";
+    if(CODE_STATUS.count(mycode) == 1) {
+        status = CODE_STATUS.find(mycode)->second;
+    } else {
+        status = "Bad Request";
+    }
+    body += std::to_string(mycode) + " : " + status  + "\n";
+    body += "<p>" + message + "</p>";
+    body += "<hr><em>TinyWebServer</em></body></html>";
+
+    buff.Append("Content-length: " + std::to_string(body.size()) + "\r\n\r\n");
+    buff.Append(body);
 }

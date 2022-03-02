@@ -1,15 +1,16 @@
 #ifndef HTTPRESPONSE_H
 #define HTTPRESPONSE_H
 
-#include <string>
 #include <sys/stat.h>   //stat
-#include "../Buffer/Buffer.h"
 #include <unordered_map>
 #include <unistd.h>   //close
 #include <fcntl.h>    //open
 #include <sys/mman.h>
-#include <iostream>
+
+
 #include "../Log/Log.h"
+#include "../Buffer/Buffer.h"
+
 
 namespace WebServer
 {
@@ -26,11 +27,14 @@ public:
     char* GetFile() {return mFile;}
     size_t GetFileSize() const {return mFileStat.st_size;}
 
-    void UnmapFile(); 
+    void UnmapFile();
+    void ErrorContent(Buffer& buff, std::string message)  ;
 private:
     void AddStateLine(Buffer &buff);
     void AddHeader(Buffer &buff);
     void AddContent(Buffer &buff);
+
+     void ErrorHtml();
 
     std::string GetFileType();  /*获取文件类型*/
     
