@@ -24,7 +24,7 @@ bool WebServer::Epoller::DelFd(int fd)
     if(fd < 0) return false;
     epoll_event ev={0};     //一个epoll事件
     ev.data.fd=fd;
-    return 0==epoll_ctl(epollfd,EPOLL_CTL_MOD,fd,&ev);   //移除
+    return 0==epoll_ctl(epollfd,EPOLL_CTL_DEL,fd,&ev);   //移除
 }
 
 int WebServer::Epoller::Wait(int timeoutMs)
