@@ -4,10 +4,11 @@
 WebServer::Server::Server(int port)
     :myepoller(new Epoller),mysocket(new Socket),mythreadpool(new ThreadPool(8))
 {
-    InitSocket(port);
+    
     HttpServer::mysrcDir = "../resources";
     HttpServer::userCount = 0;
-
+    InitEventMode(0);
+    InitSocket(port);
     Log::Instance()->init(0, "./log", ".log", 1024);
     LOG_INFO("========== Server init ==========");
 
@@ -17,13 +18,39 @@ WebServer::Server::~Server()
 {
     
 }
+
+void WebServer::Server::InitEventMode(int trigMode) {
+    listenEvent = EPOLLRDHUP;
+    connEvent = EPOLLONESHOT | EPOLLRDHUP;
+    switch (trigMode)
+    {
+    case 0:
+        break;
+    case 1:
+        connEvent |= EPOLLET;
+        break;
+    case 2:
+        listenEvent |= EPOLLET;
+        break;
+    case 3:
+        listenEvent |= EPOLLET;
+        connEvent |= EPOLLET;
+        break;
+    default:
+        listenEvent |= EPOLLET;
+        connEvent |= EPOLLET;
+        break;
+    }
+    HttpServer::isET = (connEvent & EPOLLET);
+}
+
 void WebServer::Server::DealListen()
 {
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
     int fd = mysocket->Accept((struct sockaddr *)& addr,len);
     user[fd].Init(fd,addr);
-    myepoller->AddFd(fd,EPOLLIN|EPOLLONESHOT|EPOLLRDHUP);
+    myepoller->AddFd(fd,EPOLLIN | connEvent);
     LOG_INFO("DealListen:%d",fd);
 }
 
@@ -64,7 +91,7 @@ void WebServer::Server::OnWrite(HttpServer* client)
     {
         if(WriteError == EAGAIN) {
             /* 继续传输 */
-            myepoller->ModFd(client->GetFd(), EPOLLOUT|EPOLLONESHOT|EPOLLRDHUP);
+            myepoller->ModFd(client->GetFd(), EPOLLOUT|connEvent);
             return;
         }
     }
@@ -75,11 +102,11 @@ void WebServer::Server::OnProsse(HttpServer* client)
 {
     if(client->process())
     {
-        myepoller->ModFd(client->GetFd(),EPOLLOUT|EPOLLONESHOT|EPOLLRDHUP);
+        myepoller->ModFd(client->GetFd(),EPOLLOUT|connEvent);
     }
     else
     {
-        myepoller->ModFd(client->GetFd(),EPOLLIN|EPOLLONESHOT|EPOLLRDHUP);
+        myepoller->ModFd(client->GetFd(),EPOLLIN|connEvent);
     }
 }
 
@@ -129,7 +156,7 @@ void WebServer::Server::InitSocket(int port)
 
     mysocket->Listen();
 
-    myepoller->AddFd(mysocket->Getlistedfd(),EPOLLRDHUP|EPOLLIN);
+    myepoller->AddFd(mysocket->Getlistedfd(),listenEvent|EPOLLIN);
 }
 
 void WebServer::Server::CloseConn(HttpServer* client)
