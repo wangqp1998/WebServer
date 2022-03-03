@@ -8,7 +8,7 @@
 #include "../Http/HttpServer.h"
 #include "../Log/Log.h"
 #include "../pool/threadpool.h"
-
+#include "../timer/timer.h"
 namespace WebServer
 {
 class Server
@@ -31,13 +31,18 @@ public:
     void OnProsse(HttpServer* client);
 
     void CloseConn(HttpServer* client);
+
+    void ExtentTime(HttpServer* client);
 private:
 
     uint32_t listenEvent;
     uint32_t connEvent;
 
+    int timeoutMS;
+
     std::unique_ptr<Epoller> myepoller;
     std::unique_ptr<Socket> mysocket;
+    std::unique_ptr<Timer> mytimer;
     std::unordered_map<int,HttpServer> user;
     std::unique_ptr<ThreadPool> mythreadpool;
 

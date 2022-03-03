@@ -6,6 +6,7 @@
 #include <regex>
 #include <algorithm>
 #include <unordered_map>
+#include <unordered_set>
 #include "../Log/Log.h"
 
 
@@ -52,6 +53,10 @@ private:
 
     std::string method,path,version,body;
     std::unordered_map<std::string,std::string> headers;
+    std::unordered_map<std::string, std::string> post;
+
+    static const std::unordered_set<std::string> DEFAULT_HTML;
+    static const std::unordered_map<std::string, int> DEFAULT_HTML_TAG;
 };
 }
 

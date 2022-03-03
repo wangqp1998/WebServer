@@ -1,11 +1,19 @@
 #include "HttpRequest.h"
 
+const std::unordered_set<std::string> WebServer::HttpRequest::DEFAULT_HTML{
+            "/index", "/register", "/login",
+             "/welcome", "/video", "/picture", };
+
+const std::unordered_map<std::string, int> WebServer::HttpRequest::DEFAULT_HTML_TAG {
+            {"/register.html", 0}, {"/login.html", 1},  };
+
+
 void WebServer::HttpRequest::init()
 {
     method=path=version=body="";
     state = REQUEST_LINE;
     headers.clear();
-    //post.clear();
+    post.clear();
 }
 
 
@@ -55,6 +63,7 @@ bool WebServer::HttpRequest::pares(Buffer& buff)
    return true; 
 }
 
+
 bool WebServer::HttpRequest::ParseRequestLine(const std::string& line)
 {
     //GET / HTTP/1.1
@@ -72,13 +81,16 @@ bool WebServer::HttpRequest::ParseRequestLine(const std::string& line)
 }
 void WebServer::HttpRequest::ParsePath()
 {
-    if(path == "/")
-    {
+    if(path == "/") {
         path = "/index.html"; 
     }
-    else
-    {
-        path = "/index.html";   /*测试，需修改*/ 
+    else {
+        for(auto &item: DEFAULT_HTML) {
+            if(item == path) {
+                path += ".html";
+                break;
+            }
+        }
     }
 }
 void WebServer::HttpRequest::ParseHeader(const std::string& line)
@@ -98,6 +110,6 @@ void WebServer::HttpRequest::ParseHeader(const std::string& line)
 void WebServer::HttpRequest::ParseBody(const std::string& line)
 {
     body = line;
-    //ParsePost_();
+    //ParsePost();
     state = FINISH;
 }

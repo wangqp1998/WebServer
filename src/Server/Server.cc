@@ -2,7 +2,9 @@
 #include <iostream>
 
 WebServer::Server::Server(int port)
-    :myepoller(new Epoller),mysocket(new Socket),mythreadpool(new ThreadPool(8))
+    :myepoller(new Epoller),mysocket(new Socket),
+    mythreadpool(new ThreadPool(8)),mytimer(new Timer),
+    timeoutMS(60000)
 {
     
     HttpServer::mysrcDir = "../resources";
@@ -48,16 +50,30 @@ void WebServer::Server::DealListen()
 {
     struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
-    int fd = mysocket->Accept((struct sockaddr *)& addr,len);
-    user[fd].Init(fd,addr);
-    myepoller->AddFd(fd,EPOLLIN | connEvent);
+    int fd;
+    do {
+        fd = mysocket->Accept((struct sockaddr *)& addr,len);
+        if(fd <= 0) { return;}
+        /*
+        else if(HttpServer::userCount >= MAX_FD) {
+            SendError(fd, "Server busy!");
+            LOG_WARN("Clients is full!");
+            return;
+        }*/
+        user[fd].Init(fd,addr);
+        if(timeoutMS > 0) {
+        mytimer->add(fd, timeoutMS, std::bind(&WebServer::Server::CloseConn, this, &user[fd]));
+        }
+        myepoller->AddFd(fd,EPOLLIN | connEvent);
+    } while(listenEvent & EPOLLET);
+   
     LOG_INFO("DealListen:%d",fd);
 }
 
 void WebServer::Server::DealRead(HttpServer* client)
 {
     assert(client);
-    LOG_INFO("DealRead:%d",client->GetFd());
+    ExtentTime(client);
     mythreadpool->AddTask(std::bind(&WebServer::Server::OnRead,this,client));
 }
 void WebServer::Server::OnRead(HttpServer* client)
@@ -72,7 +88,7 @@ void WebServer::Server::OnRead(HttpServer* client)
 void WebServer::Server::DealWrite(HttpServer* client)
 {
     assert(client);
-    LOG_INFO("DealWrite:%d",client->GetFd());
+    ExtentTime(client);
     mythreadpool->AddTask(std::bind(&WebServer::Server::OnWrite,this,client));
 }
 
@@ -95,7 +111,13 @@ void WebServer::Server::OnWrite(HttpServer* client)
             return;
         }
     }
+    //mytimer->dowork(client->GetFd());
     CloseConn(client);
+}
+
+void WebServer::Server::ExtentTime(HttpServer* client) {
+    assert(client);
+    if(timeoutMS > 0) {  mytimer->adjust(client->GetFd(),timeoutMS); }
 }
 
 void WebServer::Server::OnProsse(HttpServer* client)
@@ -116,6 +138,10 @@ void WebServer::Server::start()
     
     while(1)
     {
+        if(timeoutMS>0)
+        {
+            timeMs = mytimer->GetNextTick();
+        }
         int eventCnt = myepoller->Wait(timeMs);
         for(int i=0;i<eventCnt;i++)
         {

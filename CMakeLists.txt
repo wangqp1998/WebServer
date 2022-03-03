@@ -6,7 +6,8 @@ set(CMAKE_CXX_FLAGS "${CMKE_CXX_FLAGS} -g  -Wall -pthread")
 
 #include_directories(${CMAKE_SOURCE_DIR}/lib)
 
-add_executable(WebServer main.cc 
+add_executable(WebServer main.cc
+               src/timer/timer.cc 
                src/Epoller/Epoller.cc 
                src/Http/HttpResponse.cc
                src/Http/HttpServer.cc
@@ -15,5 +16,6 @@ add_executable(WebServer main.cc
                src/Socket/Socket.cc
                src/Buffer/Buffer.cc
                src/Log/Log.cc
+              
                                     )
 
