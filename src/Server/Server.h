@@ -1,14 +1,16 @@
 #ifndef WEBSERVER_H
 #define WEBSERVER_H
 
-#include "../Socket/Socket.h"
-#include "../Epoller/Epoller.h"
 #include <memory>  //unique_ptr
 #include <unordered_map>
+
+#include "../Socket/Socket.h"
+#include "../Epoller/Epoller.h"
 #include "../Http/HttpServer.h"
 #include "../Log/Log.h"
 #include "../pool/threadpool.h"
 #include "../timer/timer.h"
+#include "../pool/sqlconnpool.h"
 namespace WebServer
 {
 class Server
@@ -34,7 +36,8 @@ public:
 
     void ExtentTime(HttpServer* client);
 private:
-
+    int myport; 
+    
     uint32_t listenEvent;
     uint32_t connEvent;
 
@@ -45,7 +48,7 @@ private:
     std::unique_ptr<Timer> mytimer;
     std::unordered_map<int,HttpServer> user;
     std::unique_ptr<ThreadPool> mythreadpool;
-
+   
 };
 }
 

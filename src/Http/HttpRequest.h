@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include "../Log/Log.h"
-
+#include "../pool/sqlconnRAll.h"
 
 namespace WebServer
 {
@@ -47,7 +47,10 @@ private:
     bool ParseRequestLine(const std::string& line);
     void ParseHeader(const std::string& line);
     void ParseBody(const std::string& line);
-
+    void ParsePost();
+    void ParseFromUrlencoded();
+    int ConverHex(char ch);
+    bool UserVerify(const std::string &name, const std::string &pwd, bool isLogin);
     void ParsePath();
     PARSE_STATE state;
 

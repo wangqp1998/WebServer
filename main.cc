@@ -1,6 +1,7 @@
 #include "src/Server/Server.h"
 #include "src/Log/Log.h"
-void test_Log()
+#include "src/pool/sqlconnpool.h"
+/*void test_Log()
 {
     
     WebServer::Log::Instance()->init(1, "./log", ".log", 1024);       
@@ -10,9 +11,10 @@ void test_Log()
     LOG_ERROR("Log_error");
     
 }
-
+*/
 int main()
 {
     WebServer::Server myserver(9600);
     myserver.start();
+    //WebServer::SqlConnPool::Instance()->Init("localhost",330,"root","999923","WebServerdb",12);
 }

@@ -110,6 +110,133 @@ void WebServer::HttpRequest::ParseHeader(const std::string& line)
 void WebServer::HttpRequest::ParseBody(const std::string& line)
 {
     body = line;
-    //ParsePost();
+    ParsePost();
     state = FINISH;
+}
+
+void WebServer::HttpRequest::ParsePost() {
+    if(method == "POST" && headers["Content-Type"] == "application/x-www-form-urlencoded") {
+        ParseFromUrlencoded();
+        if(DEFAULT_HTML_TAG.count(path)) {
+            int tag = DEFAULT_HTML_TAG.find(path)->second;
+            LOG_DEBUG("Tag:%d", tag);
+            if(tag == 0 || tag == 1) {
+                bool isLogin = (tag == 1);
+                if(UserVerify(post["username"], post["password"], isLogin)) {
+                    path = "/welcome.html";
+                } 
+                else {
+                    path = "/error.html";
+                }
+            }
+        }
+    }   
+}
+
+void WebServer::HttpRequest::ParseFromUrlencoded() {
+    if(body.size() == 0) { return; }
+
+    std::string key, value;
+    int num = 0;
+    int n = body.size();
+    int i = 0, j = 0;
+
+    for(; i < n; i++) {
+        char ch = body[i];
+        switch (ch) {
+        case '=':
+            key = body.substr(j, i - j);
+            j = i + 1;
+            break;
+        case '+':
+            body[i] = ' ';
+            break;
+        case '%':
+            num = ConverHex(body[i + 1]) * 16 + ConverHex(body[i + 2]);
+            body[i + 2] = num % 10 + '0';
+            body[i + 1] = num / 10 + '0';
+            i += 2;
+            break;
+        case '&':
+            value = body.substr(j, i - j);
+            j = i + 1;
+            post[key] = value;
+            LOG_DEBUG("%s = %s", key.c_str(), value.c_str());
+            break;
+        default:
+            break;
+        }
+    }
+    assert(j <= i);
+    if(post.count(key) == 0 && j < i) {
+        value = body.substr(j, i - j);
+        post[key] = value;
+    }
+}
+
+int WebServer::HttpRequest::ConverHex(char ch) {
+    if(ch >= 'A' && ch <= 'F') return ch -'A' + 10;
+    if(ch >= 'a' && ch <= 'f') return ch -'a' + 10;
+    return ch;
+}
+
+bool WebServer::HttpRequest::UserVerify(const std::string &name, const std::string &pwd, bool isLogin) {
+    if(name == "" || pwd == "") { return false; }
+    LOG_INFO("Verify name:%s pwd:%s", name.c_str(), pwd.c_str());
+    MYSQL* sql;
+    SqlConnRAII(&sql,  SqlConnPool::Instance());
+    assert(sql);
+    
+    bool flag = false;
+    unsigned int j = 0;
+    char order[256] = { 0 };
+    MYSQL_FIELD *fields = nullptr;
+    MYSQL_RES *res = nullptr;
+    
+    if(!isLogin) { flag = true; }
+    /* 查询用户及密码 */
+    snprintf(order, 256, "SELECT username, password FROM user WHERE username='%s' LIMIT 1", name.c_str());
+    LOG_DEBUG("%s", order);
+
+    if(mysql_query(sql, order)) { 
+        mysql_free_result(res);
+        return false; 
+    }
+    res = mysql_store_result(sql);
+    j = mysql_num_fields(res);
+    fields = mysql_fetch_fields(res);
+
+    while(MYSQL_ROW row = mysql_fetch_row(res)) {
+        LOG_DEBUG("MYSQL ROW: %s %s", row[0], row[1]);
+        std::string password(row[1]);
+        /* 注册行为 且 用户名未被使用*/
+        if(isLogin) {
+            if(pwd == password) { flag = true; }
+            else {
+                flag = false;
+                LOG_DEBUG("pwd error!");
+            }
+        } 
+        else { 
+            flag = false; 
+            LOG_DEBUG("user used!");
+        }
+    }
+    mysql_free_result(res);
+
+    /* 注册行为 且 用户名未被使用*/
+    if(!isLogin && flag == true) {
+        LOG_DEBUG("regirster!");
+        bzero(order, 256);
+        snprintf(order, 256,"INSERT INTO user(username, password) VALUES('%s','%s')", name.c_str(), pwd.c_str());
+        LOG_DEBUG( "%s", order);
+        if(mysql_query(sql, order)) { 
+            LOG_DEBUG( "Insert error!");
+            flag = false; 
+        }
+        flag = true;
+    }
+    SqlConnPool::Instance()->FreeConn(sql);
+    LOG_DEBUG( "UserVerify success!!");
+    return flag;
 }

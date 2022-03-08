@@ -20,6 +20,7 @@ const std::unordered_map<std::string, std::string> WebServer::HttpResponse::SUFF
     { ".tar",   "application/x-tar" },
     { ".css",   "text/css "},
     { ".js",    "text/javascript "},
+    //application/yuml   浏览器会下载文件
 };
 
 const std::unordered_map<int, std::string> WebServer::HttpResponse::CODE_STATUS = {

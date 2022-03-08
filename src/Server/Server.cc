@@ -4,21 +4,27 @@
 WebServer::Server::Server(int port)
     :myepoller(new Epoller),mysocket(new Socket),
     mythreadpool(new ThreadPool(8)),mytimer(new Timer),
-    timeoutMS(60000)
+    timeoutMS(60000),myport(port)
 {
-    
+    /*初始化SQL*/
+    SqlConnPool::Instance()->Init("localhost",330,"root","999923","WebServerdb",12);  
+    /*HttpServer静态变量赋值  mysrcDir为资源地址 userCount为当前连接的用户个数*/
     HttpServer::mysrcDir = "../resources";
     HttpServer::userCount = 0;
+    /*初始化Epoll模式*/
     InitEventMode(0);
+    /*初始化Socker*/
     InitSocket(port);
+    /*初始化Log*/
     Log::Instance()->init(0, "./log", ".log", 1024);
     LOG_INFO("========== Server init ==========");
-
+    
 }
 
 WebServer::Server::~Server()
 {
-    
+    close(myport);
+    SqlConnPool::Instance()->ClosePool();
 }
 
 void WebServer::Server::InitEventMode(int trigMode) {

@@ -285,6 +285,33 @@ src/Http/HttpServer.cc.s:
 	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.s
 .PHONY : src/Http/HttpServer.cc.s
 
+src/Log/Log.o: src/Log/Log.cc.o
+
+.PHONY : src/Log/Log.o
+
+# target to build an object file
+src/Log/Log.cc.o:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Log/Log.cc.o
+.PHONY : src/Log/Log.cc.o
+
+src/Log/Log.i: src/Log/Log.cc.i
+
+.PHONY : src/Log/Log.i
+
+# target to preprocess a source file
+src/Log/Log.cc.i:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Log/Log.cc.i
+.PHONY : src/Log/Log.cc.i
+
+src/Log/Log.s: src/Log/Log.cc.s
+
+.PHONY : src/Log/Log.s
+
+# target to generate assembly for a file
+src/Log/Log.cc.s:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Log/Log.cc.s
+.PHONY : src/Log/Log.cc.s
+
 src/Server/Server.o: src/Server/Server.cc.o
 
 .PHONY : src/Server/Server.o
@@ -339,6 +366,60 @@ src/Socket/Socket.cc.s:
 	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/Socket/Socket.cc.s
 .PHONY : src/Socket/Socket.cc.s
 
+src/pool/sqlconnpool.o: src/pool/sqlconnpool.cc.o
+
+.PHONY : src/pool/sqlconnpool.o
+
+# target to build an object file
+src/pool/sqlconnpool.cc.o:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/pool/sqlconnpool.cc.o
+.PHONY : src/pool/sqlconnpool.cc.o
+
+src/pool/sqlconnpool.i: src/pool/sqlconnpool.cc.i
+
+.PHONY : src/pool/sqlconnpool.i
+
+# target to preprocess a source file
+src/pool/sqlconnpool.cc.i:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/pool/sqlconnpool.cc.i
+.PHONY : src/pool/sqlconnpool.cc.i
+
+src/pool/sqlconnpool.s: src/pool/sqlconnpool.cc.s
+
+.PHONY : src/pool/sqlconnpool.s
+
+# target to generate assembly for a file
+src/pool/sqlconnpool.cc.s:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/pool/sqlconnpool.cc.s
+.PHONY : src/pool/sqlconnpool.cc.s
+
+src/timer/timer.o: src/timer/timer.cc.o
+
+.PHONY : src/timer/timer.o
+
+# target to build an object file
+src/timer/timer.cc.o:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/timer/timer.cc.o
+.PHONY : src/timer/timer.cc.o
+
+src/timer/timer.i: src/timer/timer.cc.i
+
+.PHONY : src/timer/timer.i
+
+# target to preprocess a source file
+src/timer/timer.cc.i:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/timer/timer.cc.i
+.PHONY : src/timer/timer.cc.i
+
+src/timer/timer.s: src/timer/timer.cc.s
+
+.PHONY : src/timer/timer.s
+
+# target to generate assembly for a file
+src/timer/timer.cc.s:
+	$(MAKE) -f CMakeFiles/WebServer.dir/build.make CMakeFiles/WebServer.dir/src/timer/timer.cc.s
+.PHONY : src/timer/timer.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -366,12 +447,21 @@ help:
 	@echo "... src/Http/HttpServer.o"
 	@echo "... src/Http/HttpServer.i"
 	@echo "... src/Http/HttpServer.s"
+	@echo "... src/Log/Log.o"
+	@echo "... src/Log/Log.i"
+	@echo "... src/Log/Log.s"
 	@echo "... src/Server/Server.o"
 	@echo "... src/Server/Server.i"
 	@echo "... src/Server/Server.s"
 	@echo "... src/Socket/Socket.o"
 	@echo "... src/Socket/Socket.i"
 	@echo "... src/Socket/Socket.s"
+	@echo "... src/pool/sqlconnpool.o"
+	@echo "... src/pool/sqlconnpool.i"
+	@echo "... src/pool/sqlconnpool.s"
+	@echo "... src/timer/timer.o"
+	@echo "... src/timer/timer.i"
+	@echo "... src/timer/timer.s"
 .PHONY : help
 
 

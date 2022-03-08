@@ -7,8 +7,14 @@ CMakeFiles/WebServer.dir/main.cc.o: ../src/Epoller/Epoller.h
 CMakeFiles/WebServer.dir/main.cc.o: ../src/Http/HttpRequest.h
 CMakeFiles/WebServer.dir/main.cc.o: ../src/Http/HttpResponse.h
 CMakeFiles/WebServer.dir/main.cc.o: ../src/Http/HttpServer.h
+CMakeFiles/WebServer.dir/main.cc.o: ../src/Log/Log.h
+CMakeFiles/WebServer.dir/main.cc.o: ../src/Log/blockqueue.h
 CMakeFiles/WebServer.dir/main.cc.o: ../src/Server/Server.h
 CMakeFiles/WebServer.dir/main.cc.o: ../src/Socket/Socket.h
+CMakeFiles/WebServer.dir/main.cc.o: ../src/pool/sqlconnRAll.h
+CMakeFiles/WebServer.dir/main.cc.o: ../src/pool/sqlconnpool.h
+CMakeFiles/WebServer.dir/main.cc.o: ../src/pool/threadpool.h
+CMakeFiles/WebServer.dir/main.cc.o: ../src/timer/timer.h
 
 CMakeFiles/WebServer.dir/src/Buffer/Buffer.cc.o: ../src/Buffer/Buffer.cc
 CMakeFiles/WebServer.dir/src/Buffer/Buffer.cc.o: ../src/Buffer/Buffer.h
@@ -19,26 +25,59 @@ CMakeFiles/WebServer.dir/src/Epoller/Epoller.cc.o: ../src/Epoller/Epoller.h
 CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o: ../src/Buffer/Buffer.h
 CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o: ../src/Http/HttpRequest.cc
 CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o: ../src/Http/HttpRequest.h
+CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o: ../src/Log/Log.h
+CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o: ../src/Log/blockqueue.h
+CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o: ../src/pool/sqlconnRAll.h
+CMakeFiles/WebServer.dir/src/Http/HttpRequest.cc.o: ../src/pool/sqlconnpool.h
 
 CMakeFiles/WebServer.dir/src/Http/HttpResponse.cc.o: ../src/Buffer/Buffer.h
 CMakeFiles/WebServer.dir/src/Http/HttpResponse.cc.o: ../src/Http/HttpResponse.cc
 CMakeFiles/WebServer.dir/src/Http/HttpResponse.cc.o: ../src/Http/HttpResponse.h
+CMakeFiles/WebServer.dir/src/Http/HttpResponse.cc.o: ../src/Log/Log.h
+CMakeFiles/WebServer.dir/src/Http/HttpResponse.cc.o: ../src/Log/blockqueue.h
 
 CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/Buffer/Buffer.h
 CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/Http/HttpRequest.h
 CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/Http/HttpResponse.h
 CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/Http/HttpServer.cc
 CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/Http/HttpServer.h
+CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/Log/Log.h
+CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/Log/blockqueue.h
+CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/pool/sqlconnRAll.h
+CMakeFiles/WebServer.dir/src/Http/HttpServer.cc.o: ../src/pool/sqlconnpool.h
+
+CMakeFiles/WebServer.dir/src/Log/Log.cc.o: ../src/Buffer/Buffer.h
+CMakeFiles/WebServer.dir/src/Log/Log.cc.o: ../src/Log/Log.cc
+CMakeFiles/WebServer.dir/src/Log/Log.cc.o: ../src/Log/Log.h
+CMakeFiles/WebServer.dir/src/Log/Log.cc.o: ../src/Log/blockqueue.h
 
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Buffer/Buffer.h
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Epoller/Epoller.h
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Http/HttpRequest.h
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Http/HttpResponse.h
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Http/HttpServer.h
+CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Log/Log.h
+CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Log/blockqueue.h
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Server/Server.cc
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Server/Server.h
 CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/Socket/Socket.h
+CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/pool/sqlconnRAll.h
+CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/pool/sqlconnpool.h
+CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/pool/threadpool.h
+CMakeFiles/WebServer.dir/src/Server/Server.cc.o: ../src/timer/timer.h
 
 CMakeFiles/WebServer.dir/src/Socket/Socket.cc.o: ../src/Socket/Socket.cc
 CMakeFiles/WebServer.dir/src/Socket/Socket.cc.o: ../src/Socket/Socket.h
+
+CMakeFiles/WebServer.dir/src/pool/sqlconnpool.cc.o: ../src/Buffer/Buffer.h
+CMakeFiles/WebServer.dir/src/pool/sqlconnpool.cc.o: ../src/Log/Log.h
+CMakeFiles/WebServer.dir/src/pool/sqlconnpool.cc.o: ../src/Log/blockqueue.h
+CMakeFiles/WebServer.dir/src/pool/sqlconnpool.cc.o: ../src/pool/sqlconnpool.cc
+CMakeFiles/WebServer.dir/src/pool/sqlconnpool.cc.o: ../src/pool/sqlconnpool.h
+
+CMakeFiles/WebServer.dir/src/timer/timer.cc.o: ../src/Buffer/Buffer.h
+CMakeFiles/WebServer.dir/src/timer/timer.cc.o: ../src/Log/Log.h
+CMakeFiles/WebServer.dir/src/timer/timer.cc.o: ../src/Log/blockqueue.h
+CMakeFiles/WebServer.dir/src/timer/timer.cc.o: ../src/timer/timer.cc
+CMakeFiles/WebServer.dir/src/timer/timer.cc.o: ../src/timer/timer.h
 
